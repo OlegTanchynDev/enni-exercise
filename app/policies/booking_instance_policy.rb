@@ -8,7 +8,7 @@ class BookingInstancePolicy < ApplicationPolicy
   # Who may record a verification on this booking (it writes audited data and
   # transitions state).
   def verify?
-    system_admin? || customer_service_operator? || (admin_operator? && operator_owns_record?)
+    system_admin? || (customer_service_operator? && operator_owns_record?) || (admin_operator? && operator_owns_record?)
   end
 
   alias update? verify?

@@ -1,0 +1,99 @@
+/*
+ *= require_tree .
+ *= require_self
+ */
+
+/* ── Enni brand tokens (sampled from enni.space) ─────────────────────────────
+   primary #664FC3 (purple) · accent #4FC3A0 (teal) · ink #222226 · body #4E535D
+   muted #6E7891 · font Nunito Sans. Bootstrap 5.3 is recoloured via its CSS
+   variables; provided as the skeleton's look — the verification card is yours. */
+:root {
+  --enni-primary: #664fc3;
+  --enni-primary-dark: #574299;
+  --enni-accent: #2f9e80;
+  --enni-ink: #222226;
+  --enni-body: #4e535d;
+  --enni-muted: #6e7891;
+
+  --bs-primary: #664fc3;
+  --bs-primary-rgb: 102, 79, 195;
+  --bs-link-color: #664fc3;
+  --bs-link-color-rgb: 102, 79, 195;
+  --bs-link-hover-color: #574299;
+  --bs-body-color: #4e535d;
+  --bs-body-bg: #f6f6fb;
+  --bs-body-font-family: "Nunito Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --bs-border-color: #ececf3;
+}
+
+body {
+  background-color: #f6f6fb;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--enni-ink);
+  font-weight: 700;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Recolour Bootstrap buttons/links to Enni purple via the 5.3 local vars. */
+.btn-primary {
+  --bs-btn-bg: var(--enni-primary);
+  --bs-btn-border-color: var(--enni-primary);
+  --bs-btn-hover-bg: var(--enni-primary-dark);
+  --bs-btn-hover-border-color: var(--enni-primary-dark);
+  --bs-btn-active-bg: var(--enni-primary-dark);
+  --bs-btn-active-border-color: var(--enni-primary-dark);
+  --bs-btn-disabled-bg: var(--enni-primary);
+  --bs-btn-disabled-border-color: var(--enni-primary);
+}
+.btn-outline-primary {
+  --bs-btn-color: var(--enni-primary);
+  --bs-btn-border-color: var(--enni-primary);
+  --bs-btn-hover-bg: var(--enni-primary);
+  --bs-btn-hover-border-color: var(--enni-primary);
+  --bs-btn-active-bg: var(--enni-primary);
+  --bs-btn-active-border-color: var(--enni-primary);
+}
+.text-primary {
+  color: var(--enni-primary) !important;
+}
+.bg-primary {
+  background-color: var(--enni-primary) !important;
+}
+
+/* App shell */
+.enni-navbar {
+  background-color: #fff;
+  border-bottom: 1px solid #ececf3;
+}
+.enni-brand {
+  color: var(--enni-primary) !important;
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+}
+.enni-brand:hover {
+  color: var(--enni-primary-dark) !important;
+  text-decoration: none;
+}
+
+.card {
+  border-color: #ececf3;
+  border-radius: 0.75rem;
+}
+
+/* Auth pages */
+.enni-auth {
+  max-width: 25rem;
+  margin: 3.5rem auto;
+}
+.enni-auth .card {
+  box-shadow: 0 12px 32px rgba(34, 34, 38, 0.07);
+}

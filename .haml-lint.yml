@@ -1,0 +1,16 @@
+# HAML linting. The real Enni enforces "no inline styles, no ERB"; haml-lint's
+# RuboCop linter reuses the project .rubocop.yml for inline Ruby.
+exclude:
+  - "vendor/**/*"
+  - "node_modules/**/*"
+
+linters:
+  LineLength:
+    max: 200
+
+  RuboCop:
+    enabled: true
+
+  # No inline style attributes — use Bootstrap utilities or SCSS.
+  InlineStyles:
+    enabled: true

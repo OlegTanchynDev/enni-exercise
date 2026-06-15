@@ -1,0 +1,22 @@
+# Cleaning-verification criteria (mirrors the real Enni YAML-driven classifier
+# with its criticalCriteria + minPassCount rules).
+#
+# The classifier scores each criterion 0-100. A criterion PASSES at or above its
+# threshold. The photo PASSES when:
+#   - at least `min_pass_count` criteria pass, AND
+#   - every criterion marked `critical: true` passes.
+min_pass_count: 2
+
+criteria:
+  floor_clean:
+    label: "Floor is swept and mopped"
+    threshold: 70
+    critical: true
+  surfaces_wiped:
+    label: "Surfaces wiped down"
+    threshold: 60
+    critical: false
+  waste_removed:
+    label: "Waste removed and bins emptied"
+    threshold: 60
+    critical: false

@@ -1,0 +1,7 @@
+-# Reusable verification badge. Pass status: (a verification_status string).
+  icon + text + colour, so it never relies on colour alone. Extend or restyle
+  it in your card if you like — a starting point, not a constraint.
+- badge = verification_badge(status)
+%span.badge.d-inline-flex.align-items-center.gap-1{ class: badge[:css], role: "status", "aria-label": "Verification status: #{badge[:label]}" }
+  %i.bi{ class: badge[:icon], "aria-hidden": "true" }
+  = badge[:label]

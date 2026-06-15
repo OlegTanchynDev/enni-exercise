@@ -1,0 +1,26 @@
+%nav{ "aria-label": "breadcrumb" }
+  %ol.breadcrumb
+    %li.breadcrumb-item= link_to "Facilities", portal_dashboard_path
+    %li.breadcrumb-item.active{ "aria-current": "page" }= @facility.name
+
+%h1.h4.mb-1= @facility.name
+%p.text-muted.mb-4= @facility.venue.name
+
+-# TASK 2 (candidate): build the Facility Verification Card.
+  You have @facility and @booking_instances (next 7 days, :cleaning_photos
+  eager-loaded). Build a polished, responsive, accessible card showing each
+  day's bookings and their verification status. See README "Pillar 2 — UI/UX
+  craft" for the full spec (states, responsiveness, accessibility, async
+  update). The shared/_verification_badge partial is a starting component.
+  Replace the placeholder below.
+.card
+  .card-body
+    %p.text-muted.small.mb-3 Placeholder — replace with your verification card.
+    - if @booking_instances.any?
+      %ul.list-unstyled.mb-0
+        - @booking_instances.each do |booking_instance|
+          %li.d-flex.justify-content-between.align-items-center.border-bottom.py-2
+            %span= booking_instance.starts_at.strftime("%a %d %b · %H:%M")
+            = render "shared/verification_badge", status: booking_instance.verification_status
+    - else
+      %p.text-muted.mb-0 No bookings in the next 7 days.

@@ -1,0 +1,10 @@
+.row.justify-content-center
+  .col-lg-8
+    %h1.h3.mb-3 Mini-Enni — Cleaning Verification
+    %p.text-muted.mb-4
+      A slimmed booking platform. Operators photograph cleaning at their venues;
+      an AI classifier scores it; the booking's verification status updates.
+    - if current_user.operator? || current_user.system_admin?
+      = link_to "Open the operator portal", portal_dashboard_path, class: "btn btn-primary"
+    - else
+      %p.text-muted You are signed in as a customer.

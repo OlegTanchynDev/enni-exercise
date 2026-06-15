@@ -43,3 +43,6 @@
 /terraform/**/.terraform.lock.hcl
 *.tfstate
 *.tfstate.*
+
+# IDE specific files
+.idea

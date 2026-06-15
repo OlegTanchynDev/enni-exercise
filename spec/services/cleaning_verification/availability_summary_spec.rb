@@ -8,7 +8,6 @@ require "rails_helper"
 # scoped to the right operator).
 RSpec.describe CleaningVerification::AvailabilitySummary do
   it "builds a digest of the operator's upcoming bookings" do
-    skip "TASK 3b: review and fix app/services/cleaning_verification/availability_summary.rb"
     operator = create(:operator)
     facility = create(:facility, venue: create(:venue, operator: operator))
     create(:booking_instance, :completed, facility: facility, starts_at: 2.days.from_now,

@@ -5,20 +5,31 @@
 # and read/write/delete objects. No action wildcards. See TASK.md.
 resource "aws_iam_policy" "task_s3_access" {
   name        = "enni-${var.environment}-task-s3-access"
-  description = "Cleaning-verification task access to the uploads bucket (NEEDS SCOPING)."
+  description = "Cleaning-verification task access to the uploads bucket."
 
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
-        Sid    = "Fixme"
+        Sid    = "ListBucket"
         Effect = "Allow"
-        Action = ["s3:*"]
+        Action = ["s3:ListBucket"]
         Resource = [
-          aws_s3_bucket.uploads.arn,
-          "${aws_s3_bucket.uploads.arn}/*",
+          aws_s3_bucket.uploads.arn
         ]
       },
+     {
+       Sid    = "ObjectAccess"
+       Effect = "Allow"
+       Action = [
+         "s3:GetObject",
+         "s3:PutObject",
+         "s3:DeleteObject"
+       ]
+       Resource = [
+         "${aws_s3_bucket.uploads.arn}/*"
+       ]
+     },
     ]
   })
 

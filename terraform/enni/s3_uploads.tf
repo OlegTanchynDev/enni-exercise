@@ -36,3 +36,21 @@ resource "aws_s3_bucket_public_access_block" "uploads" {
 # TASK 4b. Cleaning photos are time-limited evidence, not durable assets. Add an
 # aws_s3_bucket_lifecycle_configuration that expires them 90 days after creation.
 # See TASK.md.
+resource "aws_s3_bucket_lifecycle_configuration" "uploads" {
+  bucket = aws_s3_bucket.uploads.id
+
+  rule {
+    id     = "expire-photos"
+    status = "Enabled"
+
+    expiration {
+      days = 90
+    }
+
+    # This rule applies only to cleaning_photos objects in the bucket.
+    filter {
+      prefix = "cleaning_photos/"
+    }
+  }
+}
+

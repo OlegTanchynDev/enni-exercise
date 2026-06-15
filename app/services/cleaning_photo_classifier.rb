@@ -22,7 +22,7 @@ class CleaningPhotoClassifier
   attr_reader :cleaning_photo, :client, :criteria_config
 
   def call
-    prompt_text = "Analyze cleaning photo based on criteria: #{criteria_config['criteria'].keys.join(', ')}"
+    prompt_text = "Analyze cleaning photo based on criteria: #{criteria_config["criteria"].keys.join(", ")}"
 
     response = client.analyze_image(
       image_bytes: cleaning_photo.image_url,
@@ -35,9 +35,7 @@ class CleaningPhotoClassifier
 
     parsed_scores = extract_scores_to_flat_hash(response) || {}
 
-    if parsed_scores.empty?
-      return failure_verdict
-    end
+    return failure_verdict if parsed_scores.empty?
 
     passed_count = 0
     any_critical_failed = false
@@ -55,21 +53,17 @@ class CleaningPhotoClassifier
 
       if score_value >= threshold
         passed_count += 1
-      else
-        if crit["critical"] && (has_key || parsed_scores.keys.size > 1)
-          any_critical_failed = true
-        end
+      elsif crit["critical"] && (has_key || parsed_scores.keys.size > 1)
+        any_critical_failed = true
       end
     end
 
-    if any_critical_failed
-      return Verdict.new(false, parsed_scores)
-    end
+    return Verdict.new(false, parsed_scores) if any_critical_failed
 
     min_pass = criteria_config["min_pass_count"].to_i
 
     is_passed = if parsed_scores.keys.size == 1
-                  passed_count > 0
+                  passed_count.positive?
                 else
                   passed_count >= min_pass
                 end
@@ -131,6 +125,7 @@ class CleaningPhotoClassifier
 
   def parse_json(body)
     return nil if body.nil?
+
     cleaned = body.to_s.strip
     return nil if cleaned.empty?
 

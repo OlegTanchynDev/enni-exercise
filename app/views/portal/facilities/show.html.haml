@@ -16,12 +16,12 @@
     .card-body
       - if @booking_instances.any?
         - @booking_instances.group_by { |b| b.starts_at.to_date }.each do |date, bookings|
-          %section.mb-4{ "aria-label": "Bookings for #{date.strftime('%A, %B %-d')}" }
+          %section.mb-4{ "aria-label": "Bookings for #{date.strftime("%A, %B %-d")}" }
             %h3.h6.text-secondary.mb-2= date.strftime("%A, %B %-d")
 
             %ul.list-group
               - bookings.each do |booking|
-                %li.list-group-item.d-flex.justify-content-between.align-items-center{ tabindex: "0", "aria-label": "Booking at #{booking.starts_at.strftime('%-I:%M %p')}, status: #{booking.verification_status}" }
+                %li.list-group-item.d-flex.justify-content-between.align-items-center{ tabindex: "0", "aria-label": "Booking at #{booking.starts_at.strftime("%-I:%M %p")}, status: #{booking.verification_status}" }
                   %span.font-weight-medium= booking.starts_at.strftime("%-I:%M %p")
                   
                   %div{ id: "booking_#{booking.id}_badge" }

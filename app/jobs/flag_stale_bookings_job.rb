@@ -8,8 +8,8 @@ class FlagStaleBookingsJob
     # 1. Find all bookings in the system that started more than 48 hours ago
     #    and still have the "unverified" status.
     stale_bookings = BookingInstance
-                       .where("starts_at < ?", 48.hours.ago)
-                       .where(verification_status: "unverified")
+                     .where(starts_at: ...48.hours.ago)
+                     .where(verification_status: "unverified")
 
     # 2. Update their status to "flagged" in a single, efficient SQL query.
     #    We use update_all because we don't need to trigger any callbacks for this operation.

@@ -40,7 +40,7 @@ RSpec.describe CleaningPhotoClassifier do
       allow(client).to receive(:analyze_image).and_return(malformed_json_response)
 
       verdict = described_class.new(photo).call
-      expect(verdict.passed?).to eq(true)
+      expect(verdict.passed?).to be(true)
     end
 
     it "never returns a passing verdict when the provider fails" do

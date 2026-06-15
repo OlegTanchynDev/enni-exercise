@@ -10,7 +10,8 @@ module Api
       # with paginate_api, serialize with BookingInstanceSerializer, keep
       # X-Total-Count opt-in. Contract: the request spec. (README has the detail.)
       def index
-        raise NotImplementedError, "TASK 1b: implement the tenant-scoped booking_instances feed"
+        instances = paginate_api(policy_scope(BookingInstance))
+        render json: instances.map { |instance| BookingInstanceSerializer.new(instance) }
       end
     end
   end

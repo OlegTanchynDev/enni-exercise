@@ -36,7 +36,6 @@ RSpec.describe BookingInstancePolicy do
 
   describe "Scope" do
     it "returns only the caller operator's bookings" do
-      skip "TASK 1b: implement BookingInstancePolicy::Scope, then delete this skip line"
       user = create(:operator_user, operator: operator, role: :operator_customer_service)
       create(:booking_instance, facility: create(:facility, venue: create(:venue, operator: other_operator)))
       ctx = UserContext.new(current_user: user, true_user: user)

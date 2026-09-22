@@ -24,7 +24,7 @@ gem "pundit", "~> 2.4"            # authorization policies
 # ── Domain support ──────────────────────────────────────────────────────────
 gem "aasm", "~> 5.5"             # state machines
 gem "audited", "~> 5.8"          # audit trail
-gem "shrine", "~> 3.6"           # file uploads (filesystem in dev, S3 in prod)
+gem "shrine", "~> 3.9"           # file uploads (filesystem in dev, S3 in prod)
 
 # ── Background jobs ─────────────────────────────────────────────────────────
 # connection_pool 3.x changed TimedStack#pop to keyword-only, which crashes the

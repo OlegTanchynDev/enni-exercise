@@ -35,7 +35,6 @@ RSpec.describe BookingInstance do
     end
 
     it "moves unverified -> verified for a passing verification" do
-      skip "TASK 1a: add the verification_status AASM, then delete this skip line"
       booking = create(:booking_instance, :completed)
       booking.start_verification!
       booking.pass_verification!

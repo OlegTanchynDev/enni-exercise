@@ -8,7 +8,7 @@ class BookingInstancePolicy < ApplicationPolicy
   # Who may record a verification on this booking (it writes audited data and
   # transitions state).
   def verify?
-    system_admin? || customer_service_operator? || (admin_operator? && operator_owns_record?)
+    system_admin? || (customer_service_operator? && operator_owns_record?) || (admin_operator? && operator_owns_record?)
   end
 
   alias update? verify?
@@ -16,7 +16,14 @@ class BookingInstancePolicy < ApplicationPolicy
   # TASK 1b. Scope the API feed to the caller's operator (admins see all).
   class Scope < ApplicationPolicy::Scope
     def resolve
-      scope.none # TASK 1b: replace with the tenant scope
+      current_user = user.current_user
+      if current_user.system_admin?
+        scope.all
+      elsif current_user.operator?
+        scope.joins(:operator).where(operators: { id: current_user.operator.id })
+      else
+        scope.none
+      end
     end
   end
 

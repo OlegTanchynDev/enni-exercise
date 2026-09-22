@@ -29,7 +29,6 @@ RSpec.describe "API V1 booking_instances", type: :request do
     end
 
     it "returns only the caller operator's bookings (tenant isolation)" do
-      skip "TASK 1b: implement the tenant-scoped feed, then delete this skip line"
       get "/api/v1/booking_instances", headers: auth_headers
       expect(response).to have_http_status(:ok)
       ids = response.parsed_body.pluck("id")
@@ -38,7 +37,6 @@ RSpec.describe "API V1 booking_instances", type: :request do
     end
 
     it "keeps X-Total-Count opt-in" do
-      skip "TASK 1b: X-Total-Count must only appear with ?include_total=true"
       get "/api/v1/booking_instances", headers: auth_headers
       expect(response.headers["X-Total-Count"]).to be_nil
 

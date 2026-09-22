@@ -15,7 +15,14 @@ module CleaningVerification
     attr_reader :booking_instance, :verdict
 
     def record
-      raise NotImplementedError, "TASK 1a: drive the verification_status transition"
+      return unless booking_instance.completed?
+      return unless booking_instance.pending?
+
+      if verdict.passed?
+        booking_instance.pass_verification!
+      else
+        booking_instance.flag_verification!
+      end
     end
   end
 end

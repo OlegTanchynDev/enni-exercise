@@ -44,6 +44,24 @@ class BookingInstance < ApplicationRecord
   # machines must be named (hence aasm(:status, ...) above). It's driven by
   # CleaningVerification::Recorder; this model is already audited, so keep the
   # transitions auditable.
+  aasm(:verification_status, column: :verification_status) do
+    state :unverified, initial: true
+    state :pending
+    state :verified
+    state :flagged
+
+    event :start_verification do
+      transitions from: :unverified, to: :pending
+    end
+
+    event :pass_verification do
+      transitions from: :pending, to: :verified
+    end
+
+    event :flag_verification do
+      transitions from: :pending, to: :flagged
+    end
+  end
 
   def latest_cleaning_photo
     cleaning_photos.order(created_at: :desc).first

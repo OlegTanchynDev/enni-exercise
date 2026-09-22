@@ -11,7 +11,12 @@ module CleaningVerification
     end
 
     def call
-      instances = BookingInstance.in_date_range(@from, @from + @days.days)
+      instances = BookingInstance
+                    .joins(facility: :venue)
+                    .where(facilities: { venues: { operator_id: @operator.id } })
+                    .where(starts_at: @from..(@from + @days.days))
+                    .includes(facility: :venue)
+                    .order("starts_at ASC")
 
       rows = instances.map do |booking_instance|
         {
@@ -23,20 +28,11 @@ module CleaningVerification
         }
       end
 
-      auto_flag_stale!(instances)
+      # TBD: Move auto_flag_stale method to rake job and trigger it one time per hour by cron
+      # Moved and optimized the code to FlagStaleBookingsJob.perform
+      #auto_flag_stale!(instances)
 
       { generated_at: Time.current, rows: rows }
-    end
-
-    private
-
-    # Bookings that started over 48h ago and were never verified get auto-flagged
-    # so they surface in the operator's review queue.
-    def auto_flag_stale!(instances)
-      instances
-        .where("starts_at < ?", 48.hours.ago)
-        .where(verification_status: "unverified")
-        .update_all(verification_status: "flagged")
     end
   end
 end

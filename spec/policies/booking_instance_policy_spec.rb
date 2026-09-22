@@ -28,7 +28,6 @@ RSpec.describe BookingInstancePolicy do
     end
 
     it "does NOT allow a customer-service operator of ANOTHER operator" do
-      skip "TASK 1c: find & fix the planted IDOR in the policy, then delete this skip line"
       user = create(:operator_user, operator: other_operator, role: :operator_customer_service)
       expect(policy_for(user).verify?).to be(false)
     end
@@ -36,7 +35,6 @@ RSpec.describe BookingInstancePolicy do
 
   describe "Scope" do
     it "returns only the caller operator's bookings" do
-      skip "TASK 1b: implement BookingInstancePolicy::Scope, then delete this skip line"
       user = create(:operator_user, operator: operator, role: :operator_customer_service)
       create(:booking_instance, facility: create(:facility, venue: create(:venue, operator: other_operator)))
       ctx = UserContext.new(current_user: user, true_user: user)

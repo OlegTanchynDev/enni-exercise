@@ -1,0 +1,12 @@
+%h1.h4.mb-4 Facilities
+- if @facilities.any?
+  .row.g-3
+    - @facilities.each do |facility|
+      .col-sm-6.col-lg-4
+        .card.h-100
+          .card-body.d-flex.flex-column
+            %h2.h6.card-title.mb-1= facility.name
+            %p.text-muted.small.mb-3= facility.venue.name
+            = link_to "View verification", portal_facility_path(facility), class: "btn btn-sm btn-outline-primary mt-auto align-self-start"
+- else
+  .alert.alert-light.border No facilities yet.

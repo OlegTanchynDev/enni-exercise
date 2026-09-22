@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  ruby:
+    name: Ruby (RSpec, RuboCop, haml-lint, Brakeman)
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: app
+          POSTGRES_PASSWORD: password
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U app"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+      redis:
+        image: redis:7
+        ports: ["6379:6379"]
+
+    env:
+      RAILS_ENV: test
+      DATABASE_HOST: localhost
+      DATABASE_USER: app
+      DATABASE_PASSWORD: password
+      REDIS_URL: redis://localhost:6379/0
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4"
+          bundler-cache: true
+
+      - name: Prepare test database
+        run: bin/rails db:test:prepare
+
+      - name: RSpec
+        run: bundle exec rspec
+
+      # A green RSpec run with pending examples doesn't prove the work is done.
+      # Fail if any TASK skip or skipped example is left behind — to go green you
+      # have to remove them, and then the specs' real assertions must pass.
+      - name: No unfinished tasks
+        run: |
+          if grep -rEn 'skip "TASK|[[:space:]]xit |[[:space:]]xdescribe ' spec/; then
+            echo "::error::Unfinished TASK markers found in spec/ — remove the skip lines and make the examples pass."
+            exit 1
+          fi
+
+      - name: RuboCop
+        run: bundle exec rubocop
+
+      - name: haml-lint
+        run: bundle exec haml-lint app/views
+
+      - name: Brakeman
+        run: bundle exec brakeman -q --no-pager
+
+  terraform:
+    name: Terraform (validate)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform/enni
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - run: terraform init -backend=false
+      - run: terraform fmt -check
+      - run: terraform validate

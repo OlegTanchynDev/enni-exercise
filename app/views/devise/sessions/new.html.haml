@@ -1,0 +1,22 @@
+.enni-auth
+  .card.border-0
+    .card-body.p-4.p-md-5
+      %h1.h4.mb-1.text-center Welcome back
+      %p.text-muted.text-center.small.mb-4 Sign in to the operator portal
+
+      = form_with model: resource, scope: resource_name, url: session_path(resource_name), method: :post do |f|
+        .mb-3
+          = f.label :email, class: "form-label"
+          = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control"
+        .mb-3
+          = f.label :password, class: "form-label"
+          = f.password_field :password, autocomplete: "current-password", class: "form-control"
+        - if devise_mapping.rememberable?
+          .form-check.mb-3
+            = f.check_box :remember_me, class: "form-check-input"
+            = f.label :remember_me, class: "form-check-label small"
+        .d-grid
+          = f.submit "Log in", class: "btn btn-primary"
+
+      %p.text-center.text-muted.small.mt-4.mb-0
+        Seed login: staff@acme.test / password123

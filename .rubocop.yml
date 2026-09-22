@@ -1,0 +1,128 @@
+# Mirrors the gates that matter in the real Enni .rubocop.yml (frozen-string
+# literal always, 120-col lines, methods <= 20, classes <= 300), trimmed for a
+# fresh repo. Double-quote string style matches Rails-generated code. We lint
+# application code (app/, lib/, spec/); framework boilerplate under config/ is
+# excluded.
+plugins:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+
+AllCops:
+  TargetRubyVersion: 3.4
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - "bin/*"
+    - "db/schema.rb"
+    - "config/**/*"
+    - "node_modules/**/*"
+    - "vendor/**/*"
+    - "tmp/**/*"
+    - "storage/**/*"
+    - "public/**/*"
+    - "Rakefile"
+    - "config.ru"
+    # Deliberately un-reviewed AI-generated code for TASK 3b — the candidate
+    # reviews it BY HAND (not via the linter), so we exclude it from RuboCop.
+    - "app/services/cleaning_verification/availability_summary.rb"
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  EnforcedStyle: always
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - "db/migrate/*"
+    - "spec/**/*"
+
+Metrics/ClassLength:
+  Max: 300
+  Exclude:
+    - "spec/**/*"
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+    - "lib/tasks/*.rake"
+    - "db/seeds.rb"
+
+Rails/Output:
+  Exclude:
+    - "db/seeds.rb"
+
+Rails/Exit:
+  Exclude:
+    - "spec/**/*"
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - "db/migrate/*"
+    - "spec/**/*"
+
+# image_classifications.passed is intentionally nullable: NULL = not yet classified.
+Rails/ThreeStateBooleanColumn:
+  Enabled: false
+
+# Verdict is the candidate's own object (does not exist in the skeleton), so the
+# illustrative recorder specs use a plain double rather than a verifying one.
+RSpec/VerifiedDoubles:
+  Enabled: false
+
+# has_role? mirrors the real Enni role API.
+Naming/PredicatePrefix:
+  AllowedMethods:
+    - has_role?
+
+# Small app: literal flash strings are fine; no i18n in scope.
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+# The API base controller deliberately filters actions defined in child controllers.
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+# Generated/structural migration cops — not worth churn in a fresh skeleton.
+Rails/CreateTableWithTimestamps:
+  Enabled: false
+Rails/BulkChangeTable:
+  Enabled: false
+Rails/ReversibleMigration:
+  Exclude:
+    - "db/migrate/*"
+
+RSpec/ExampleLength:
+  Max: 20
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/DescribeClass:
+  Exclude:
+    - "spec/requests/**/*"
+    - "spec/system/**/*"
+
+RSpec/Focus:
+  Enabled: true

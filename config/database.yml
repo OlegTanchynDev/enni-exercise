@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV.fetch("DATABASE_HOST", "db") %>
+  username: <%= ENV.fetch("DATABASE_USER", "app") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD", "password") %>
+
+development:
+  <<: *default
+  database: <%= ENV.fetch("DATABASE_NAME", "mini_enni_development") %>
+
+test:
+  <<: *default
+  database: <%= ENV.fetch("DATABASE_NAME_TEST", "mini_enni_test") %>
+
+production:
+  <<: *default
+  database: mini_enni_production
+  url: <%= ENV["DATABASE_URL"] %>

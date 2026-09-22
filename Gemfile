@@ -31,7 +31,7 @@ gem "shrine", "~> 3.6"           # file uploads (filesystem in dev, S3 in prod)
 # Sidekiq 7.3 scheduler thread at boot (retries + scheduled jobs die silently).
 gem "connection_pool", "< 3"
 gem "redis", "~> 5.3"
-gem "sidekiq", "~> 7.3"
+gem "sidekiq", "~> 8.0"
 
 # ── External AI provider (HTTP) ─────────────────────────────────────────────
 gem "httparty", "~> 0.22" # real provider uses this; the stub mimics its shape

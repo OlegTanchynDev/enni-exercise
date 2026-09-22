@@ -73,7 +73,7 @@ jobs:
         working-directory: terraform/enni
     steps:
       - uses: actions/checkout@v4
-      - uses: hashicorp/setup-terraform@v3
+      - uses: hashicorp/setup-terraform@v4
       - run: terraform init -backend=false
       - run: terraform fmt -check
       - run: terraform validate

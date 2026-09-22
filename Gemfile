@@ -11,7 +11,7 @@ gem "sprockets-rails"
 gem "tzinfo-data", platforms: %i[windows jruby]
 
 # ── Frontend (importmap + Hotwire; Bootstrap 5 via CDN, no Node build) ───────
-gem "haml-rails", "~> 2.0"
+gem "haml-rails", "~> 3.1"
 gem "importmap-rails"
 gem "stimulus-rails"
 gem "turbo-rails"

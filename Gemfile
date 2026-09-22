@@ -48,7 +48,7 @@ group :development, :test do
   # Quality / security gates (also run in CI).
   gem "brakeman", require: false
   gem "haml_lint", require: false
-  gem "rubocop", "~> 1.69", require: false
+  gem "rubocop", "~> 1.91", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false

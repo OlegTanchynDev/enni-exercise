@@ -42,7 +42,7 @@ group :development, :test do
   gem "faker", "~> 3.4"
   gem "n_plus_one_control", "~> 0.7" # assert query counts in specs (the N+1 fix becomes provable)
   gem "rspec-rails", "~> 7.1"
-  gem "shoulda-matchers", "~> 6.4"
+  gem "shoulda-matchers", "~> 8.0"
   gem "test-prof", "~> 1.4" # let_it_be / before_all
 
   # Quality / security gates (also run in CI).

@@ -94,7 +94,7 @@ GEM
     builder (3.3.0)
     cgi (0.5.1)
     concurrent-ruby (1.3.6)
-    connection_pool (2.5.5)
+    connection_pool (3.0.2)
     content_disposition (1.0.0)
     crass (1.0.6)
     csv (3.3.5)
@@ -404,7 +404,7 @@ DEPENDENCIES
   audited (~> 5.8)
   bootsnap
   brakeman
-  connection_pool (< 3)
+  connection_pool (< 4)
   debug
   devise (~> 4.9)
   doorkeeper (~> 5.8)

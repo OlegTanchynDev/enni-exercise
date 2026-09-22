@@ -85,7 +85,7 @@ GEM
     base64 (0.3.0)
     bcrypt (3.1.22)
     benchmark (0.5.0)
-    bigdecimal (4.1.2)
+    bigdecimal (4.1.3)
     bindex (0.8.1)
     bootsnap (1.24.6)
       msgpack (~> 1.2)
@@ -93,7 +93,7 @@ GEM
       racc
     builder (3.3.0)
     cgi (0.5.1)
-    concurrent-ruby (1.3.6)
+    concurrent-ruby (1.3.8)
     connection_pool (2.5.5)
     content_disposition (1.0.0)
     crass (1.0.6)
@@ -146,7 +146,7 @@ GEM
       csv
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
-    i18n (1.14.8)
+    i18n (1.15.2)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.2.3)
       actionpack (>= 6.0.0)
@@ -331,8 +331,8 @@ GEM
       rubocop (~> 1.86, >= 1.86.2)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
-    shoulda-matchers (6.5.0)
-      activesupport (>= 5.2.0)
+    shoulda-matchers (8.0.1)
+      activesupport (>= 7.2)
     shrine (3.7.1)
       content_disposition (~> 1.0)
       down (~> 5.1)
@@ -425,7 +425,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec
-  shoulda-matchers (~> 6.4)
+  shoulda-matchers (~> 8.0)
   shrine (~> 3.6)
   sidekiq (~> 7.3)
   simplecov
